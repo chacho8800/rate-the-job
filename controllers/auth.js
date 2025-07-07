@@ -24,6 +24,7 @@ router.post('/sign-up', async (req, res) => {
     if (userInDatabase) {
       return res.send('Username already taken.');
     }
+
   
     // Username is not taken already!
     // Check if the password and confirm password match
@@ -35,10 +36,13 @@ router.post('/sign-up', async (req, res) => {
     const hashedPassword = bcrypt.hashSync(req.body.password, 10);
     req.body.password = hashedPassword;
   
-    // All ready to create the new user!
-    await User.create(req.body);
+    // // All ready to create the new user!
+    // await User.create(req.body);
+      // Create the user and store in session
+    const newUser = await User.create(req.body);
+    req.session.user = newUser;
   
-    res.redirect('/auth/sign-in');
+    res.redirect('/profile/new');
   } catch (error) {
     console.log(error);
     res.redirect('/');
