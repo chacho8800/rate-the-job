@@ -42,8 +42,8 @@ app.get('/', (req, res) => {
 
 app.use(passUserToView);
 app.use('/auth', authController);
-app.use('/profile', profileController);
 app.use(isSignedIn)
+app.use('/profile', profileController);
 
 
 app.listen(port, () => {

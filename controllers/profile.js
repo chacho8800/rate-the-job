@@ -3,7 +3,7 @@ const router = express.Router()
 
 const User = require("../models/user.js");
 const Profile = require("../models/profile.js");
-const session = require('express-session');
+
 
 
 // Get the Profile form
@@ -40,10 +40,10 @@ router.post("/", async (req, res) => {
 })
 
 // Show The Profile Page
-router.get("/:id", async (req, res) => {
+router.get("/", async (req, res) => {
     try {
         // Find the profile in the database
-        const userInDatabase = await User.findById(req.params.id).populate("profileId")
+        const userInDatabase = await User.findById(req.session.user._id).populate("profileId")
         console.log(userInDatabase);
 
         // If the user does not have a profile, redirect to the new profile page
@@ -51,10 +51,9 @@ router.get("/:id", async (req, res) => {
             return res.redirect("/profile/new")
         }
         
-        res.locals.profile = userInDatabase.profileId
-
         res.render("profile/show.ejs",{
-            user: userInDatabase
+            user: userInDatabase,
+            profile: userInDatabase.profileId
         })
     } catch (error) {
         console.log(error);
@@ -63,14 +62,14 @@ router.get("/:id", async (req, res) => {
 })
 
 // Get the Edit Profile form
-router.get("/:id/edit", async (req,res) => {
+router.get("/edit", async (req,res) => {
     try {
         // Find the profile in the database
-        const userInDatabase = await User.findById(req.params.id).populate("profileId")
+        const userInDatabase = await User.findById(req.session.user._id).populate("profileId")
 
-        res.locals.profile = userInDatabase.profileId
         res.render("profile/edit.ejs", {
-            user: req.session.user
+            user: req.session.user,
+            profile: userInDatabase.profileId
         })
     } catch (error) {
         console.log(error);
@@ -79,15 +78,15 @@ router.get("/:id/edit", async (req,res) => {
 })
 
 // Update the Profile
-router.put("/:id", async (req, res) => {
+router.put("/", async (req, res) => {
     try {
         // Find the profile in the database
-        const userInDatabase = await User.findById(req.params.id).populate("profileId");
+        const userInDatabase = await User.findById(req.session.user._id).populate("profileId");
 
 
         userInDatabase.profileId.set(req.body);
         await userInDatabase.profileId.save();
-        res.redirect(`/profile/${userInDatabase._id}`)
+        res.redirect(`/profile`)
         
     } catch (error) {
         console.log(error);
