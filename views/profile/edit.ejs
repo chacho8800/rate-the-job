@@ -6,6 +6,7 @@
     <title>Edit Profile</title>
 </head>
 <body>
+    <%- include('../partials/_navbar.ejs') %>
     <h1>Edit your information</h1>
     <form action="/profile/<%= user._id %>/?_method=PUT" method="POST">
         <label for="firstName">First Name:</label>
@@ -22,7 +23,6 @@
 
         <label for="experience">Years of Experience: </label>
         <input type="number" name="experience" id="experience" value="<%= profile.experience %>" required />
-
 
         <button type="submit">Edit Profile</button>
     </form>

@@ -18,6 +18,8 @@ router.post("/", async (req, res) => {
         const newProfile = await Profile.create(req.body)
         console.log(newProfile);
 
+        
+
         // Find the user in the database
         const userInDatabase = await User.findById(req.session.user._id)
         console.log(userInDatabase);
@@ -43,6 +45,11 @@ router.get("/:id", async (req, res) => {
         // Find the profile in the database
         const userInDatabase = await User.findById(req.params.id).populate("profileId")
         console.log(userInDatabase);
+
+        // If the user does not have a profile, redirect to the new profile page
+        if (!userInDatabase.profileId) {
+            return res.redirect("/profile/new")
+        }
         
         res.locals.profile = userInDatabase.profileId
 
