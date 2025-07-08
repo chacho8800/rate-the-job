@@ -26,7 +26,7 @@ router.post("/", async (req, res) => {
         userInDatabase.profileId = newProfile._id
 
         await userInDatabase.save()
-        // Redirect to the profile page
+        // Redirect to the home page
         res.redirect(`/`)
         
 
@@ -44,13 +44,50 @@ router.get("/:id", async (req, res) => {
         const userInDatabase = await User.findById(req.params.id).populate("profileId")
         console.log(userInDatabase);
         
-        res.locals.profile = userInDatabase.profileId;
+        res.locals.profile = userInDatabase.profileId
 
-        res.render("profile/show.ejs")
+        res.render("profile/show.ejs",{
+            user: userInDatabase
+        })
     } catch (error) {
         console.log(error);
         res.redirect("/");
     }
+})
+
+// Get the Edit Profile form
+router.get("/:id/edit", async (req,res) => {
+    try {
+        // Find the profile in the database
+        const userInDatabase = await User.findById(req.params.id).populate("profileId")
+
+        res.locals.profile = userInDatabase.profileId
+        res.render("profile/edit.ejs", {
+            user: req.session.user
+        })
+    } catch (error) {
+        console.log(error);
+        res.redirect("/");
+    }
+})
+
+// Update the Profile
+router.put("/:id", async (req, res) => {
+    try {
+        // Find the profile in the database
+        const userInDatabase = await User.findById(req.params.id).populate("profileId");
+
+
+        userInDatabase.profileId.set(req.body);
+        await userInDatabase.profileId.save();
+        res.redirect(`/profile/${userInDatabase._id}`)
+        
+    } catch (error) {
+        console.log(error);
+        res.redirect("/");
+    }
+
+
 })
 
 
