@@ -8,8 +8,13 @@
 <body>
   <%- include('./partials/_navbar.ejs') %>
   <h1>Welcome to Rate the Job</h1>
+  <% if (user) { %>
+    <a href="/users/<%= user._id %>/posts/new">Create a Post </a>
+    <% } %>
+  <% if (!user) {  %>
   <a href="/auth/sign-in">Sign In</a>
   <a href="/auth/sign-up">Sign Up</a>
+  <% } %>
 
 </body>
 </html>

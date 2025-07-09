@@ -9,6 +9,7 @@ const session = require('express-session');
 
 const authController = require('./controllers/auth.js');
 const profileController = require('./controllers/profile.js');
+const postsController = require('./controllers/posts.js');
 
 
 const isSignedIn = require("./middleware/is-signed-in.js")
@@ -44,6 +45,7 @@ app.use(passUserToView);
 app.use('/auth', authController);
 app.use(isSignedIn)
 app.use('/profile', profileController);
+app.use('/users/:userId/posts', postsController);
 
 
 app.listen(port, () => {
