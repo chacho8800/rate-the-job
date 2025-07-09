@@ -3,8 +3,10 @@
     <% if(user) { %>
     <a href="/profile">Profile</a>
     <a href="/users/<%= user._id%>/posts">View App</a>
+    <a href="/users">Users</a>
     <a href="/auth/sign-out">Sign Out</a>
     <% } else { %>
+    <a href="/users">Users</a>
     <a href="/auth/sign-in">Sign In</a>
     <a href="/auth/sign-up">Sign Up</a>
     <% } %> 

@@ -9,11 +9,23 @@
     <%- include('../partials/_navbar.ejs') %>
     <h1>Post Page</h1>
     <ul>
-        <li><%= post.title %></li>
-        <li><%= post.description %></li>
-        <li><%= post.category %></li>
-        <img src="<%= post.img %>" alt="postImg" style="max-width: 30%; height: auto;" >
+        <li><strong>Title:</strong><%= post.title %></li>
+        <li><strong>Description:</strong><%= post.description %></li>
+        <li><strong>Category:</strong><%= post.category %></li>
+        <li><strong>Image:</strong><img src="<%= post.img %>" alt="postImg" style="max-width: 30%; height: auto;" ></li>
+        
     </ul>
+
+    <% if (profile.profileId) { %>
+        <div>
+            <p>Listed By</p>
+            <p><%= profile.profileId.firstName %> <%= profile.profileId.lastName %></p>
+            <p><strong>Company:</strong> <%= profile.profileId.company %></p>
+            <p><strong>Experience:</strong> <%= profile.profileId.experience %></p>
+        </div>
+    <% } else { %>
+        <p>No profile information available.</p>
+    <% } %>
 
     <a href="/users/<%= user._id %>/posts">Back to Post App</a>
 </body>

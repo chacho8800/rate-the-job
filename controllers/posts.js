@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 const Post = require("../models/post.js");
+const Profile = require("../models/profile.js")
+const User = require("../models/user.js")
 
 
 /*
@@ -59,13 +61,17 @@ router.get("/:postId", async (req, res) => {
     try {
         const currentPost = await Post.findOne({
             owner: req.session.user._id,
-            _id: req.params.postId
+            _id: req.params.postId,
         }).populate("owner")
+
+        const currentUser = await User.findById(req.session.user._id).populate("profileId")
+        console.log(currentUser)
 
         console.log(currentPost)
 
         res.render("posts/show.ejs",{
-            post: currentPost
+            post: currentPost,
+            profile: currentUser
         })
 
     } catch (error) {
