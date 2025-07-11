@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Users App</title>
+    <title><%= user.profileId.company %></title>
 </head>
 <body>
     <%- include('../partials/_navbar.ejs') %>
-    <h1>Users App</h1>
+    <h1><%= user.profileId.firstName %>`s App</h1>
     <% if (userPosts.length > 0 ) { %>
+    
     <ul>
         <% userPosts.forEach(post => { %>
         <li><strong>Title:</strong><%= post.title %></li>
@@ -21,17 +22,20 @@
         <p> There are no posts in Users app</p>
    <% } %>
 
-   <% if (profile.profileId) { %>
+   <% if (user.profileId && userPosts.length > 0) { %>
     <div>
-        <p>Listed By</p>
-        <p><%= profile.profileId.firstName %> <%= profile.profileId.lastName %></p>
-        <p><strong>Company:</strong> <%= profile.profileId.company %></p>
-        <p><strong>Experience:</strong> <%= profile.profileId.experience %></p>
+        <h2>Listed By</h2>
+        <p><strong>Name:</strong><%= user.profileId.firstName %> <%= user.profileId.lastName %></p>
+        <p><strong>Company:</strong> <%= user.profileId.company %></p>
+        <p><strong>Experience:</strong> <%= user.profileId.experience %></p>
     </div>
     <% } else { %>
     <p>No profile information available.</p>
     <% } %>
     </ul>
+
+
+ 
 
     <a href="/users">Back to Users App</a>
 </body>

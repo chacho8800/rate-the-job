@@ -20,7 +20,13 @@ const postSchema = new mongoose.Schema({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
-    }
+    },
+    reviews: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Review"
+        }
+    ]
 })
 
 const Post = mongoose.model("Post", postSchema)

@@ -15,18 +15,46 @@
         <li><strong>Image:</strong><img src="<%= post.img %>" alt="postImg" style="max-width: 30%; height: auto;" ></li>
         
     </ul>
-
-    <% if (profile.profileId) { %>
+    <% if (post.owner.profileId) { %>
         <div>
             <p>Listed By</p>
-            <p><%= profile.profileId.firstName %> <%= profile.profileId.lastName %></p>
-            <p><strong>Company:</strong> <%= profile.profileId.company %></p>
-            <p><strong>Experience:</strong> <%= profile.profileId.experience %></p>
+            <p><strong>Name:</strong><%= post.owner.profileId.firstName %> <%= post.owner.profileId.lastName %></p>
+            <p><strong>Company:</strong> <%= post.owner.profileId.company %></p>
+            <p><strong>Experience:</strong> <%= post.owner.profileId.experience %></p>
         </div>
     <% } else { %>
         <p>No profile information available.</p>
     <% } %>
 
+    <form action="/users/<%= user._id %>/posts/<%= post._id %>/reviews" method="POST">
+        <label for="rating">Rating:</label>
+        <select name="rating" id="rating" required>
+            <option value="1">⭐</option>
+            <option value="2">⭐⭐</option>
+            <option value="3">⭐⭐⭐</option>
+            <option value="4">⭐⭐⭐⭐</option>
+            <option value="5">⭐⭐⭐⭐⭐</option>
+        </select>
+
+        <br>
+
+        <label for="comment">Comment:</label>
+        <textarea name="comment" id="comment" rows="3" cols="30"></textarea>
+
+        <br>
+        <button type="submit">Submit Review</button>
+    </form>
+
+    <% post.reviews.forEach(review => { %>
+        <li>
+          <%= "⭐".repeat(review.rating) %> — 
+          <strong><%= review.reviewerId.username %></strong>: 
+          <%= review.comment %><br>
+          <small>Posted on <%= new Date(review.createdAt).toLocaleDateString() %></small>
+        </li>
+    <% }) %>
+
+   
     <a href="/users/<%= user._id %>/posts">Back to Post App</a>
 </body>
 </html>

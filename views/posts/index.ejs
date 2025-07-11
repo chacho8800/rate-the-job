@@ -19,7 +19,7 @@
          <%= post.title %>
         </a>
         </li>
-
+        <% if (user._id.toString() === post.owner._id.toString()) { %>
         <a href="/users/<%= user._id %>/posts/<%= post._id %>/edit">
             <button type="submit">Update post</button>
         </a>
@@ -27,6 +27,7 @@
         <form action="/users/<%= user._id %>/posts/<%= post._id %>?_method=DELETE" method="POST">
             <button type="submit">Delete post</button>
         </form>
+        <% } %>
 
     <% }) %>
     </ul>

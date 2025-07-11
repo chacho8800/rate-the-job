@@ -3,17 +3,17 @@ const router = express.Router()
 
 const User = require("../models/user.js")
 const Post = require("../models/post.js");
-const Profile = require("../models/profile.js")
+const Profile = require("../models/profile.js");
+const Review = require("../models/review.js");
 
 // Index - View All Users
 router.get("/users", async (req, res) => {
     try {
-        const currentUser =  await User.find({}).populate("profileId")
-        const userPosts = await Post.find({}).populate("owner")
-        console.log(userPosts)
-        console.log(currentUser)
+        const allUser =  await User.find({}).populate("profileId")
+        
+        console.log(allUser)
         res.render("users/index.ejs", {
-            users : currentUser
+            users : allUser
         })
 
     } catch (error) {
@@ -25,14 +25,16 @@ router.get("/users", async (req, res) => {
 // Show - View a single user
 router.get("/users/:userId", async (req, res) => {
     try {
-        const userPosts = await Post.find({owner: req.params.userId}).populate("owner")
-        const userProfile = await User.findById(req.params.userId).populate("profileId");
-        
-        console.log(userProfile)
+        const userPosts = await Post.find({owner: req.params.userId})
+        const userProfile = await User.findById(req.params.userId).populate("profileId")
+
+      
+        console.log("posttttttt",userProfile)
+        console.log("userrr",userPosts)
         // console.log(userPosts)
         res.render("users/show.ejs", {
             userPosts : userPosts,
-            profile : userProfile
+            user : userProfile,
 
         })
 

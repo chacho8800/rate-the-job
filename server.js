@@ -11,6 +11,7 @@ const authController = require('./controllers/auth.js');
 const profileController = require('./controllers/profile.js');
 const postsController = require('./controllers/posts.js');
 const usersController = require("./controllers/users.js")
+const reviewsController = require("./controllers/reviews.js")
 
 
 const isSignedIn = require("./middleware/is-signed-in.js")
@@ -48,6 +49,8 @@ app.use('/auth', authController);
 app.use(isSignedIn)
 app.use('/profile', profileController);
 app.use('/users/:userId/posts', postsController);
+app.use('/users/:userId/posts/:postId/reviews', reviewsController);
+
 
 
 app.listen(port, () => {

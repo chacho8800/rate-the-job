@@ -22,7 +22,7 @@
         <input type="email" name="email" id="email" value="<%= profile.email %>" required />
 
         <label for="experience">Years of Experience: </label>
-        <input type="number" name="experience" id="experience" value="<%= profile.experience %>" required />
+        <input type="number" name="experience" id="experience" min="0" value="<%= profile.experience %>" required />
 
         <button type="submit">Edit Profile</button>
     </form>

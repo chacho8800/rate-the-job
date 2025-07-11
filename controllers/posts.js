@@ -1,9 +1,10 @@
 const express = require('express');
-const router = express.Router();
+const router = express.Router({mergeParams: true});
 
 const Post = require("../models/post.js");
 const Profile = require("../models/profile.js")
 const User = require("../models/user.js")
+const Review = require("../models/review.js")
 
 
 /*
@@ -22,12 +23,15 @@ Delete	 ‘/users/:userId/posts/:postId’	           DELETE
 // Index - Show all posts by a user
 router.get("/", async (req, res) => {
     try {
-    const posts = await Post.find({owner: req.session.user._id}).populate("owner")
+    const currentUser = await User.findById(req.session.user._id)
+    const posts = await Post.find({})
 
     res.locals.posts = posts
     // console.log(posts)
 
-    res.render("posts/index.ejs")
+    res.render("posts/index.ejs",{
+        user : currentUser
+    })
     } catch (error) {
         console.log(error)
         res.redirect("/")
@@ -59,19 +63,28 @@ router.post("/", async (req, res) => {
 // Show - show post in show page
 router.get("/:postId", async (req, res) => {
     try {
-        const currentPost = await Post.findOne({
-            owner: req.session.user._id,
-            _id: req.params.postId,
-        }).populate("owner")
+        const currentUser = await User.findById(req.session.user._id)
+        const currentPost = await Post.findById(req.params.postId)
+        .populate({
+            path : "owner",
+            populate: { path : "profileId"}
+        })
+        .populate({
+            path: "reviews",
+            populate: {
+                path: "reviewerId",
+                select : "username"
+            }
+        })
+     
 
-        const currentUser = await User.findById(req.session.user._id).populate("profileId")
-        console.log(currentUser)
-
-        console.log(currentPost)
+        
+        console.log("===================",currentUser)
+        console.log("POstttttttttt", currentPost)
 
         res.render("posts/show.ejs",{
             post: currentPost,
-            profile: currentUser
+            user: currentUser
         })
 
     } catch (error) {
@@ -84,14 +97,14 @@ router.get("/:postId", async (req, res) => {
 // Edit - Show the edit form 
 router.get("/:postId/edit", async (req,res) => {
     try {
-        const currentPost = await Post.findOne({
-            owner: req.session.user._id,
-            _id: req.params.postId
-        }).populate("owner")
+        const currentUser = await User.findById(req.session.user._id)
+        const currentPost = await Post.findById(req.params.postId).populate("owner")
 
-        res.locals.post = currentPost
+        res.render("posts/edit.ejs",{
+            user : currentUser,
+            post : currentPost
 
-        res.render("posts/edit.ejs")
+        })
     } catch (error) {
         console.log(error)
         res.redirect("/")
@@ -101,15 +114,13 @@ router.get("/:postId/edit", async (req,res) => {
 // Update - Update the post
 router.put("/:postId", async (req, res) => {
     try {
-        const currentPost = await Post.findOne({
-            owner: req.session.user._id,
-            _id: req.params.postId
-        }).populate("owner")
+        const currentUser = await User.findById(req.session.user._id)
+        const currentPost = await Post.findById(req.params.postId).populate("owner")
 
         currentPost.set(req.body)
         await currentPost.save()
 
-        res.redirect(`/users/${currentPost.owner._id}/posts`)
+        res.redirect(`/users/${currentUser._id}/posts/${req.params.postId}`)
 
 
     } catch(error) {
@@ -121,16 +132,14 @@ router.put("/:postId", async (req, res) => {
 // Delete - Delete the post
 router.delete("/:postId", async (req, res) => {
     try {
-        const currentPost = await Post.findOne({
-            owner: req.session.user._id,
-            _id: req.params.postId
-        }).populate("owner")
+        const currentUser = await User.findById(req.session.user._id)
+        const currentPost = await Post.findById(req.params.postId).populate("owner")
 
         await currentPost.deleteOne()
 
-        // console.log(currentPost)
+        console.log("deleteeee", currentPost)
 
-        res.redirect(`/users/${currentPost.owner._id}/posts`)
+        res.redirect(`/users/${currentUser._id}/posts`)
 
 
     } catch (error) {
