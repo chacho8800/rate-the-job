@@ -3,18 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/stylesheets/style.css" />
   <title>Home Page</title>
 </head>
-<body>
+  <body class="home-body">
   <%- include('./partials/_navbar.ejs') %>
-  <h1>Welcome to Rate the Job</h1>
-  <% if (user) { %>
-    <a href="/users/<%= user._id %>/posts/new">Create a Post </a>
-    <% } %>
-  <% if (!user) {  %>
-  <a href="/auth/sign-in">Sign In</a>
-  <a href="/auth/sign-up">Sign Up</a>
-  <% } %>
+  <div class="home-container">
+    <div class="text-container">
+      <h1 class="main-header">Welcome to Rate the Job</h1>
+      <p class="subheader">Rate the Job — A smarter way to track and review construction work.</p>
 
-</body>
+      <img src="/images/rateTheJob.png" alt="rateTheJob Logo" class="site-logo" />
+    </div>
+    <% if (user) { %>
+    <a class="new-post" href="/users/<%= user._id %>/posts/new">Create a Post </a>
+    <% } %>
+    <div class="auth-links">
+    <% if (!user) {  %>
+      <a href="/auth/sign-in">Sign In</a>
+      <a href="/auth/sign-up">Sign Up</a>
+      <% } %>
+    </div>
+  </div>
+  </body>
 </html>

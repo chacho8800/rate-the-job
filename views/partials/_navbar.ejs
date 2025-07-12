@@ -1,13 +1,20 @@
-<nav>
-    <a href="/">Home</a>
+<link rel="stylesheet" href="/stylesheets/partials.css" />
+
+<nav class="navbar">
+    <a class="authLink" href="/">Home</a>
+
     <% if(user) { %>
-    <a href="/profile">Profile</a>
-    <a href="/users/<%= user._id%>/posts">View App</a>
-    <a href="/users">Users</a>
-    <a href="/auth/sign-out">Sign Out</a>
+        <div class="nav-links">
+            <a class="authLink" href="/profile">Profile</a>
+            <a class="authLink" href="/users/<%= user._id%>/posts">View App</a>
+            <a class="authLink" href="/users">Users</a>
+            <a class="authLink" href="/auth/sign-out">Sign Out</a>
+        </div>
     <% } else { %>
-    <a href="/users">Users</a>
-    <a href="/auth/sign-in">Sign In</a>
-    <a href="/auth/sign-up">Sign Up</a>
+        <div class="nav-links">
+            <a class="authLink" href="/users">Users</a>
+            <a class="authLink" href="/auth/sign-in">Sign In</a>
+            <a class="authLink" href="/auth/sign-up">Sign Up</a>
+        </div>
     <% } %> 
 </nav>
