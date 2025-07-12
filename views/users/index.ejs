@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/partials.css" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
     <title>Users</title>
 </head>
 <body>
@@ -11,10 +13,9 @@
     <h1>Users</h1>
     <ul>
     <% users.forEach(user => { %>
-        <a href="/users/<%= user._id %>">
-        <li><%= user.username %></li>
-        </a>
-
+        <li>
+            <a href="/users/<%= user._id %>"><%= user.username %></a>
+        </li>
     <% }) %>
     </ul>
 </body>

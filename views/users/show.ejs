@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= user.profileId.company %></title>
+    <link rel="stylesheet" href="/stylesheets/partials.css" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
 </head>
 <body>
     <%- include('../partials/_navbar.ejs') %>
     <h1><%= user.profileId.firstName %>`s App</h1>
-    <% if (userPosts.length > 0 ) { %>
+    <% if (userPosts.length > 0) { %>
     
     <ul>
         <% userPosts.forEach(post => { %>
@@ -33,9 +35,6 @@
     <p>No profile information available.</p>
     <% } %>
     </ul>
-
-
- 
 
     <a href="/users">Back to Users App</a>
 </body>
