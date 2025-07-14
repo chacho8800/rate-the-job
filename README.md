@@ -21,7 +21,7 @@ For the construction indusstry word of mouth is very important. Rate The Job wil
 # Getting started
 
 ## Deployed App
-[View the live app here on Heroku]
+[View the live app here on Heroku](https://rate-the-job-ee4ca271ff23.herokuapp.com/)
 
 ## Planning Materials
 
