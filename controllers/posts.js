@@ -2,9 +2,7 @@ const express = require('express');
 const router = express.Router({mergeParams: true});
 
 const Post = require("../models/post.js");
-const Profile = require("../models/profile.js")
 const User = require("../models/user.js")
-const Review = require("../models/review.js")
 
 
 /*
@@ -27,7 +25,6 @@ router.get("/", async (req, res) => {
     const posts = await Post.find({})
 
     res.locals.posts = posts
-    // console.log(posts)
 
     res.render("posts/index.ejs",{
         user : currentUser
@@ -48,9 +45,8 @@ router.post("/", async (req, res) => {
     try{
         const newPost = new Post(req.body)
         newPost.owner = req.session.user._id
-        // console.log(newPost)
-        await newPost.save()
 
+        await newPost.save()
 
         res.redirect(`/users/${newPost.owner}/posts`)
 
@@ -77,11 +73,7 @@ router.get("/:postId", async (req, res) => {
                 select : "username"
             }
         })
-     
-
-        
-        console.log("===================",currentUser)
-        console.log("POstttttttttt", currentPost)
+    
 
         res.render("posts/show.ejs",{
             post: currentPost,
@@ -137,9 +129,7 @@ router.delete("/:postId", async (req, res) => {
         const currentPost = await Post.findById(req.params.postId).populate("owner")
 
         await currentPost.deleteOne()
-
-        console.log("deleteeee", currentPost)
-
+        
         res.redirect(`/users/${currentUser._id}/posts`)
 
 

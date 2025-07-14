@@ -16,9 +16,6 @@ router.post("/", async (req, res) => {
     try {
         // Create a new profile
         const newProfile = await Profile.create(req.body)
-        console.log(newProfile);
-
-        
 
         // Find the user in the database
         const userInDatabase = await User.findById(req.session.user._id)
@@ -82,7 +79,6 @@ router.put("/", async (req, res) => {
     try {
         // Find the profile in the database
         const userInDatabase = await User.findById(req.session.user._id).populate("profileId");
-
 
         userInDatabase.profileId.set(req.body);
         await userInDatabase.profileId.save();

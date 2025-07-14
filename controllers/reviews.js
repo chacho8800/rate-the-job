@@ -22,9 +22,6 @@ router.post("/", async (req, res) => {
 
     const post = await Post.findById(postId)
 
-
-    console.log("=============",newReview)
-
     // Add review to post's reviews array
     post.reviews.push(newReview._id);
     await post.save();
