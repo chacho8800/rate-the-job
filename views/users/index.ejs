@@ -5,18 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/stylesheets/partials.css" />
     <link rel="stylesheet" href="/stylesheets/style.css" />
-    <title>Users</title>
+    <title>All Users</title>
 </head>
 <body>
     <%- include('../partials/_navbar.ejs') %>
+    <div class="user-header">
+    <h1>All Users</h1>
+    </div>
 
-    <h1>Users</h1>
-    <ul>
-    <% users.forEach(user => { %>
-        <li>
+    <div class="user-continer">
+    <% if(users.length > 0) { %>
+    <ul class="user-list">
+        <% users.forEach(user => { %>
+        <li class="user-item">
             <a href="/users/<%= user._id %>"><%= user.username %></a>
         </li>
     <% }) %>
     </ul>
+    <% } else { %>
+        <p>No Users found.</p>
+    <% } %>
+    </div>
 </body>
 </html>

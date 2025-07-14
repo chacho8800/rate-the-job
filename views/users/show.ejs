@@ -3,39 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= user.profileId.company %></title>
     <link rel="stylesheet" href="/stylesheets/partials.css" />
-    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/show.css" />
+    <title><%= user.profileId.company %> - Posts</title>
 </head>
 <body>
     <%- include('../partials/_navbar.ejs') %>
-    <h1><%= user.profileId.firstName %>`s App</h1>
+    <div class="show-body">
+
+        <div class="owner-app">
+            <h1><%= user.profileId.firstName %>`s App</h1>
+        </div>
     <% if (userPosts.length > 0) { %>
-    
-    <ul>
+
+    <div class="post-details">
+        <ul class="post-info">
         <% userPosts.forEach(post => { %>
-        <li><strong>Title:</strong><%= post.title %></li>
+
+        <div class="show-header">
+        <h1><%= post.title %></h1>
+        </div>
+        <img src="<%= post.img %>" alt="postImg" class="post-img">
         <li><strong>Description:</strong><%= post.description %></li>
         <li><strong>Category:</strong><%= post.category %></li>
-        <li><strong>Image:</strong><img src="<%= post.img %>" alt="postImg" style="max-width: 30%; height: auto;" ></li>
-
     <% }) %> 
     <% } else { %>
         <p> There are no posts in Users app</p>
    <% } %>
-
+    </div>   
+    <div class="owner-info">
    <% if (user.profileId && userPosts.length > 0) { %>
-    <div>
-        <h2>Listed By</h2>
+        <h3>Listed By</h3>
         <p><strong>Name:</strong><%= user.profileId.firstName %> <%= user.profileId.lastName %></p>
         <p><strong>Company:</strong> <%= user.profileId.company %></p>
         <p><strong>Experience:</strong> <%= user.profileId.experience %></p>
-    </div>
     <% } else { %>
-    <p>No profile information available.</p>
+        <p>No profile information available.</p>
     <% } %>
+    </div>
     </ul>
 
-    <a href="/users">Back to Users App</a>
+    <a class="post-link" href="/users">Back to Users App</a>
+    </div>
 </body>
 </html>

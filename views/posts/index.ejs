@@ -9,18 +9,19 @@
 </head>
 <body>
     <%- include('../partials/_navbar.ejs') %>
+  <div class="posts-header">
     <h1>Posts App</h1>
     <p>Welcome to the Posts App!</p>
-    <a href="/users/<%= user._id %>/posts/new">Add new post</a>
 
+    <a class="post-link" href="/users/<%= user._id %>/posts/new">Add new post</a>
+    </div> 
     <% if(posts.length > 0) { %>
-    <ul>
+    <ul class="post-list">
     <% posts.forEach(post => { %>
-        <li>
+        <li class="post-item">
         <a href="/users/<%= user._id %>/posts/<%= post._id %>">
          <%= post.title %>
         </a>
-        </li>
         <% if (user._id.toString() === post.owner._id.toString()) { %>
         <a href="/users/<%= user._id %>/posts/<%= post._id %>/edit">
             <button type="submit">Update post</button>
@@ -29,16 +30,14 @@
         <form action="/users/<%= user._id %>/posts/<%= post._id %>?_method=DELETE" method="POST">
             <button type="submit">Delete post</button>
         </form>
+        
         <% } %>
-
+      </li>
     <% }) %>
     </ul>
     <% } else { %>
         <p> There are no posts in post app</p>
     <% } %>
-   
-
-
 
 </body>
 </html>

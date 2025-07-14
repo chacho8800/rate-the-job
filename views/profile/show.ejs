@@ -9,14 +9,16 @@
 </head>
 <body>
     <%- include('../partials/_navbar.ejs') %>
+    <div class="profile">
     <h1>Profile</h1>
     <h2>First Name: <%= profile.firstName %></h2>
     <h2>Last Name: <%= profile.lastName %></h2>
     <h2>Company: <%= profile.company %></h2>
     <h2>Email: <%= profile.email %></h2>
     <h2>Years of Experience: <%= profile.experience %></h2>
+    </div>
 
-    <a href="/profile/edit">
+    <a class="btn-edit" href="/profile/edit">
         <button>Edit Profile</button>
     </a>
 </body>

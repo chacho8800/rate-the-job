@@ -28,10 +28,9 @@ router.get("/users/:userId", async (req, res) => {
         const userPosts = await Post.find({owner: req.params.userId})
         const userProfile = await User.findById(req.params.userId).populate("profileId")
 
-      
         console.log("posttttttt",userProfile)
         console.log("userrr",userPosts)
-        // console.log(userPosts)
+
         res.render("users/show.ejs", {
             userPosts : userPosts,
             user : userProfile,
