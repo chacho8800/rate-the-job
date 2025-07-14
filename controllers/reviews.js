@@ -10,7 +10,7 @@ router.post("/", async (req, res) => {
   const { postId, userId } = req.params;
 
   try {
-    // Create new review
+    
     const newReview = new Review({
         rating,
         comment,

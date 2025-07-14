@@ -11,9 +11,8 @@
     <%- include('../partials/_navbar.ejs') %>
   <div class="posts-header">
     <h1>Posts App</h1>
-    <p>Welcome to the Posts App!</p>
 
-    <a class="post-link" href="/users/<%= user._id %>/posts/new">Add new post</a>
+    <a class="post-link" href="/users/<%= user._id %>/posts/new">Add a new post</a>
     </div> 
     <% if(posts.length > 0) { %>
     <ul class="post-list">
