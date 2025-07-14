@@ -10,6 +10,7 @@ router.post("/", async (req, res) => {
   const { postId, userId } = req.params;
 
   try {
+    // Create new review
     const newReview = new Review({
         rating,
         comment,
@@ -24,6 +25,7 @@ router.post("/", async (req, res) => {
 
     console.log("=============",newReview)
 
+    // Add review to post's reviews array
     post.reviews.push(newReview._id);
     await post.save();
 

@@ -63,6 +63,7 @@ router.post("/", async (req, res) => {
 // Show - show post in show page
 router.get("/:postId", async (req, res) => {
     try {
+        // Find post and populate owner’s profile and review details
         const currentUser = await User.findById(req.session.user._id)
         const currentPost = await Post.findById(req.params.postId)
         .populate({
