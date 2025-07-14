@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/stylesheets/partials.css" />
     <link rel="stylesheet" href="/stylesheets/show.css" />
-    <title><%= user.profileId.company %> - Posts</title>
+    <title><%= currentUser.profileId.company %> - Posts</title>
 </head>
 <body>
     <%- include('../partials/_navbar.ejs') %>
     <div class="show-body">
 
         <div class="owner-app">
-            <h1><%= user.profileId.firstName %>`s App</h1>
+            <h1><%= currentUser.profileId.firstName %>`s App</h1>
         </div>
     <% if (userPosts.length > 0) { %>
 
@@ -32,18 +32,18 @@
    <% } %>
     </div>   
     <div class="owner-info">
-   <% if (user.profileId && userPosts.length > 0) { %>
+   <% if (currentUser.profileId && userPosts.length > 0) { %>
         <h3>Listed By</h3>
-        <p><strong>Name:</strong><%= user.profileId.firstName %> <%= user.profileId.lastName %></p>
-        <p><strong>Company:</strong> <%= user.profileId.company %></p>
-        <p><strong>Experience:</strong> <%= user.profileId.experience %> years</p>
+        <p><strong>Name:</strong><%= currentUser.profileId.firstName %> <%= currentUser.profileId.lastName %></p>
+        <p><strong>Company:</strong> <%= currentUser.profileId.company %></p>
+        <p><strong>Experience:</strong> <%= currentUser.profileId.experience %> years</p>
     <% } else { %>
         <p>No profile information available.</p>
     <% } %>
     </div>
     </ul>
 
-    <a class="post-link" href="/users">Back to Users App</a>
+    <a class="post-link" href="/currentUsers">Back to Users App</a>
     </div>
 </body>
 </html>

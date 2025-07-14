@@ -28,7 +28,7 @@ router.get("/users/:userId", async (req, res) => {
 
         res.render("users/show.ejs", {
             userPosts : userPosts,
-            user : userProfile,
+            currentUser : userProfile,
 
         })
 
