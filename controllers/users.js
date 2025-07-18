@@ -23,7 +23,13 @@ router.get("/users", async (req, res) => {
 // Show - View a single user
 router.get("/users/:userId", async (req, res) => {
     try {
-        const userPosts = await Post.find({owner: req.params.userId})
+        const userPosts = await Post.find({ owner: req.params.userId }).populate({
+            path: "reviews",
+            populate: {
+                path: "reviewerId",
+                select: "username"
+            }
+        });
         const userProfile = await User.findById(req.params.userId).populate("profileId")
 
         res.render("users/show.ejs", {

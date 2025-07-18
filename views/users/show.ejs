@@ -42,6 +42,24 @@
     <% } %>
     </div>
     </ul>
+    <ul>
+        <% userPosts.forEach(postReview => { %>
+            <% if (postReview.reviews.length > 0) { %>  
+            <% postReview.reviews.forEach(review => { %>
+                <li class="review-item">
+                    <span class="stars"><%= "⭐".repeat(review.rating) %></span> — 
+                    <a href=/users/<%= review.reviewerId._id  %>>
+                    <strong><%= review.reviewerId.username %></strong>: 
+                    </a>
+                    <%= review.comment %><br>
+                    <small>Posted on <%= new Date(review.createdAt).toLocaleDateString() %></small>
+                  </li>
+                  <% }) %>
+                  <% } else { %>
+                    <li><p>No reviews yet.</p></li>
+            <% } %> 
+        <% }) %>
+    </ul>
 
     <a class="post-link" href="/users">Back to Users App</a>
     </div>
