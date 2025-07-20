@@ -2,7 +2,8 @@ const express = require("express")
 const router = express.Router({mergeParams: true})
 
 const Review = require("../models/review.js")
-const Post = require("../models/post.js")
+const Post = require("../models/post.js");
+const User = require("../models/user.js");
 
 // Create a review
 router.post("/", async (req, res) => {
@@ -29,6 +30,19 @@ router.post("/", async (req, res) => {
     res.redirect(`/users/${userId}/posts/${postId}`);
   } catch (error) {
     console.error("Review creation failed:", error);
+    res.redirect("/");
+  }
+});
+
+router.delete("/:reviewId", async (req, res) => {
+  const { userId, postId, reviewId } = req.params;
+
+  try {
+    await Review.findByIdAndDelete(reviewId);
+
+    res.redirect(`/users/${userId}/posts/${postId}`);
+  } catch (error) {
+    console.error(error);
     res.redirect("/");
   }
 });

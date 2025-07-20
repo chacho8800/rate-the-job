@@ -73,7 +73,7 @@ router.get("/:postId", async (req, res) => {
                 select : "username"
             }
         })
-    
+        console.log(currentPost)
 
         res.render("posts/show.ejs",{
             post: currentPost,

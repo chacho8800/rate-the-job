@@ -58,6 +58,11 @@ button {
 
 .review-item {
     margin-bottom: 12px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: baseline;
+    gap: 5px;
 }
 
 .stars {
